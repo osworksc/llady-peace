@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Llady Peace | Author • Speaker • Entrepreneur • Notary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --soft-pink: #FFF0F5;
+            --blush: #F8E1E7;
+            --rose: #E8B4B8;
+            --pink-primary: #D4A5A5;
+            --pink-deep: #C9A9A6;
+            --metallic-gold: #C9A96E;
+            --gold-light: #E8D5B7;
+            --gold-bright: #D4AF37;
+            --black: #1A1A1A;
+            --charcoal: #2D2D2D;
+            --white: #FFFFFF;
+            --cream: #FDF8F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--soft-pink);
+            color: var(--charcoal);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--soft-pink);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--metallic-gold);
+            border-radius: 4px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 240, 245, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gold-light);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 40px;
+            box-shadow: 0 4px 30px rgba(201, 169, 110, 0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--metallic-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--metallic-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--metallic-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--metallic-gold);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 60px 60px;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--blush) 50%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--rose) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content {
+            animation: slideInLeft 1s ease;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-label {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: var(--metallic-gold);
+            margin-bottom: 15px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 800;
+            color: var(--black);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--metallic-gold);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--charcoal);
+            margin-bottom: 30px;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        .hero-quote {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--pink-deep);
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 3px solid var(--metallic-gold);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--metallic-gold), var(--gold-bright));
+            color: var(--white);
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.3);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(201, 169, 110, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--charcoal);
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid var(--metallic-gold);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline:hover {
+            background: var(--metallic-gold);
+            color: var(--white);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 1s ease;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            object-fit: cover;
+        }
+
+        .hero-image-frame {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            bottom: 20px;
+            left: 20px;
+            border: 3px solid var(--metallic-gold);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Social Bar */
+        .social-bar {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .social-bar a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--metallic-gold);
+            font-size: 18px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .social-bar a:hover {
+            background: var(--metallic-gold);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 60px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: var(--metallic-gold);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--metallic-gold), var(--gold-light));
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--white);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: -30px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--metallic-gold);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .about-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--black);
+            margin-bottom: 25px;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            color: var(--charcoal);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 36px;
+            color: var(--metallic-gold);
+            margin-top: 30px;
+        }
+
+        /* Ventures Grid */
+        .ventures {
+            background: linear-gradient(180deg, var(--soft-pink) 0%, var(--blush) 100%);
+        }
+
+        .ventures-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .venture-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gold-light);
+        }
+
+        .venture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--metallic-gold), var(--gold-bright));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .venture-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .venture-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 169, 110, 0.2);
+        }
+
+        .venture-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blush), var(--soft-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            position: relative;
+        }
+
+        .venture-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .venture-icon.speaking-icon {
+            background: var(--black);
+            color: #F28AA7;
+        }
+
+        .venture-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--black);
+            margin-bottom: 15px;
+        }
+
+        .venture-card p {
+            font-size: 14px;
+            color: var(--charcoal);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .venture-link {
+            color: var(--metallic-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .venture-link:hover {
+            gap: 15px;
+        }
+
+        /* Books Section */
+        .books {
+            background: var(--white);
+        }
+
+        .books-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .book-card {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+            align-items: center;
+            background: var(--soft-pink);
+            border-radius: 25px;
+            padding: 30px;
+            transition: all 0.4s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .book-cover {
+            position: relative;
+        }
+
+        .book-cover img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .book-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .book-info .book-tag {
+            display: inline-block;
+            background: var(--metallic-gold);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .book-info p {
+            font-size: 14px;
+            color: var(--charcoal);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .book-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--metallic-gold);
+            margin-bottom: 15px;
+        }
+
+        /* App Showcase */
+        .app-showcase {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-showcase::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--metallic-gold) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .app-content .section-label {
+            color: var(--gold-light);
+        }
+
+        .app-content .section-title {
+            color: var(--white);
+        }
+
+        .app-content p {
+            color: var(--gold-light);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .app-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .app-feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-feature i {
+            color: var(--metallic-gold);
+            font-size: 20px;
+        }
+
+        .app-feature span {
+            color: var(--white);
+            font-size: 15px;
+        }
+
+        .app-badges {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .app-badge {
+            background: var(--white);
+            color: var(--black);
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .app-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .app-mockup {
+            position: relative;
+        }
+
+        .app-mockup img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        /* Notary Section */
+        .notary {
+            background: linear-gradient(180deg, var(--blush) 0%, var(--soft-pink) 100%);
+        }
+
+        .notary-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .notary-card {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 60px;
+            margin-top: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            border: 2px solid var(--gold-light);
+        }
+
+        .notary-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--metallic-gold), var(--gold-bright));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 40px;
+            color: var(--white);
+        }
+
+        .notary-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        .notary-card p {
+            font-size: 16px;
+            color: var(--charcoal);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .notary-services {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .notary-service {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--charcoal);
+        }
+
+        .notary-service i {
+            color: var(--metallic-gold);
+        }
+
+        .notary-hours {
+            background: var(--soft-pink);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .notary-hours h4 {
+            color: var(--metallic-gold);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        /* Notary Pricing */
+        .notary-pricing {
+            background: var(--white);
+        }
+
+        .pricing-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            border: 2px solid var(--gold-light);
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--cream);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .pricing-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--black);
+            background: linear-gradient(135deg, var(--blush), var(--soft-pink));
+            padding: 20px 25px;
+            text-align: center;
+        }
+
+        .pricing-list {
+            list-style: none;
+            padding: 12px 25px 24px;
+        }
+
+        .pricing-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--gold-light);
+            line-height: 1.45;
+        }
+
+        .pricing-list li:last-child {
+            border-bottom: 0;
+        }
+
+        .pricing-list strong {
+            color: var(--metallic-gold);
+            white-space: nowrap;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
+
+        .pricing-note,
+        .pricing-subheading,
+        .payment-methods {
+            margin: 0 25px 24px;
+        }
+
+        .pricing-subheading {
+            color: var(--metallic-gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .pricing-note {
+            background: var(--soft-pink);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 45px;
+        }
+
+        .payment-methods span {
+            background: var(--charcoal);
+            color: var(--white);
+            border-radius: 50px;
+            padding: 9px 16px;
+            font-size: 14px;
+        }
+
+        /* Appointment Form */
+        .appointment-form {
+            max-width: 600px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--gold-light);
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background: var(--white);
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--metallic-gold);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--soft-pink);
+            border-radius: 25px;
+            padding: 40px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            color: var(--metallic-gold);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--charcoal);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author-info h4 {
+            font-size: 16px;
+            color: var(--black);
+        }
+
+        .testimonial-author-info p {
+            font-size: 13px;
+            color: var(--metallic-gold);
+        }
+
+        .review-form {
+            max-width: 760px;
+            margin: 55px auto 0;
+            padding: 35px;
+            border: 2px solid var(--gold-light);
+            border-radius: 25px;
+            background: var(--soft-pink);
+            text-align: left;
+        }
+
+        .review-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            text-align: center;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .review-form > p {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Contact / Footer */
+        .contact {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 60px;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            font-size: 18px;
+            color: var(--gold-light);
+            margin-bottom: 40px;
+        }
+
+        .contact-email {
+            font-size: 24px;
+            color: var(--metallic-gold);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 40px;
+            transition: color 0.3s;
+        }
+
+        .contact-email:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .footer-social a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--metallic-gold);
+            transform: translateY(-5px);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-text span {
+            color: var(--metallic-gold);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .about-container,
+            .app-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .hero-title {
+                font-size: 52px;
+            }
+
+            .social-bar {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 42px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .book-card {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .notary-card {
+                padding: 30px 20px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-list {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .pricing-list li {
+                gap: 12px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    
+        /* Floating Hearts Decoration */
+        .floating-heart {
+            position: fixed;
+            font-size: 24px;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatHeart 15s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(10deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+            75% { transform: translateY(-40px) rotate(5deg); }
+        }
+
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="floating-heart" style="top: 15%; left: 5%; animation-delay: 0s;">💗</div>
+    <div class="floating-heart" style="top: 35%; right: 8%; animation-delay: 3s;">💗</div>
+    <div class="floating-heart" style="top: 55%; left: 3%; animation-delay: 6s;">💗</div>
+    <div class="floating-heart" style="top: 75%; right: 5%; animation-delay: 9s;">💗</div>
+    <div class="floating-heart" style="top: 25%; left: 90%; animation-delay: 12s;">💗</div>
+
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">Llady Peace</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#ventures">My Work</a></li>
+            <li><a href="#books">Books</a></li>
+            <li><a href="#app">App</a></li>
+            <li><a href="#notary">Notary</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Social Side Bar -->
+    <div class="social-bar">
+        <a href="https://www.instagram.com/lladypeace/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://web.facebook.com/llady.peace" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@llady.peace3" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="mailto:Piecebypeace0128@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-label">Welcome to my world</div>
+                <h1 class="hero-title">
+                    LLady
+                    <span>Peace</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Author • Speaker • Entrepreneur • Notary Public • Faith Walker
+                </p>
+                <div class="hero-quote">
+                    "Never Give Up. Your story isn't over."
+                </div>
+                <div class="hero-buttons">
+                    <a href="#ventures" class="btn-gold">
+                        <i class="fas fa-compass"></i> Explore My Work
+                    </a>
+                    <a href="#notary" class="btn-outline">
+                        <i class="fas fa-calendar-check"></i> Book Notary
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <div class="section-label">My Story</div>
+            <h2 class="section-title" style="font-family: 'Great Vibes', cursive; font-size: 64px; color: var(--metallic-gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">Who Am I?</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="vs.png" alt="Llady Peace">
+            </div>
+            <div class="about-content">
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 32px; color: var(--black);">A Woman on a Mission</h3>
+                <p>
+                    I am Llady Peace — a woman who has walked through darkness and emerged with a light that refuses to be dimmed. Through my own battles with depression, anxiety, grief, and heartbreak, I discovered that my pain had a purpose: to help other women find their way back to themselves.
+                </p>
+                <p>
+                    Everything I do is centered around one message: <strong>Never Give Up.</strong> Those three words are more than a motto — they are how I live my life. I believe God has a unique plan for every person, and even when the road isn't easy, giving up means never discovering the incredible future waiting on the other side.
+                </p>
+                <p>
+                    Through my books, journals, the Who Am I? app, Sisterhood Circle community, speaking engagements, and notary services, my hope is that someone will find the courage to keep going, believe again, and realize that their story isn't over.
+                </p>
+                <p>
+                    Because no matter what you've been through... <em>Your past does not define you. Your pain does not disqualify you. And with God, your best chapters are still being written.</em>
+                </p>
+                <div class="about-signature">Llady Peace</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ventures Section -->
+    <section class="ventures" id="ventures">
+        <div class="section-header">
+            <div class="section-label">What I Do</div>
+            <h2 class="section-title">My Ventures</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="ventures-grid">
+            <div class="venture-card">
+                <div class="venture-icon"><img src="logo2.jpg" alt="Piece by Peace Solutions logo"></div>
+                <h3>Piece by Peace Solutions</h3>
+                <p>My umbrella company where faith meets entrepreneurship. Publishing, speaking, and creating resources that empower women to rise.</p>
+                <a href="https://www.piecebypeacesolutions.com/" target="_blank" rel="noopener noreferrer" class="venture-link">
+                    Visit Website <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="venture-card">
+                <div class="venture-icon"><img src="logo1.jpg" alt="Sisterhood Circle logo"></div>
+                <h3>Sisterhood Circle</h3>
+                <p>A safe community where women encourage one another, find support, access valuable resources, and grow together without judgment.</p>
+                <a href="https://www.sisterhoodscircle.com/" target="_blank" rel="noopener noreferrer" class="venture-link">
+                    Join the Circle <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="venture-card">
+                <div class="venture-icon"><img src="logo1.jpg" alt="Who Am I App logo"></div>
+                <h3>Who Am I? App</h3>
+                <p>A faith-based journey of self-discovery, healing, and empowerment. Daily affirmations, journaling, prayers, and progress tracking.</p>
+                <a href="#app" class="venture-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="venture-card">
+                <div class="venture-icon speaking-icon"><i class="fas fa-microphone"></i></div>
+                <h3>Speaking & Events</h3>
+                <p>Booking now for conferences, workshops, church events, and women's gatherings. Let's inspire your audience together.</p>
+                <a href="#contact" class="venture-link">
+                    Book LLady <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="books" id="books">
+        <div class="section-header">
+            <div class="section-label">My Words</div>
+            <h2 class="section-title">Books & Journal</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="books-container">
+            <div class="books-grid">
+                <!-- Book 1 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <img src="book1.jpg" alt="When Darkness Feels Like Home">
+                    </div>
+                    <div class="book-info">
+                        <span class="book-tag">Bestseller</span>
+                        <h3>When Darkness Feels Like Home</h3>
+                        <p>
+                            This powerful and soul-stirring book is a lifeline for anyone who's ever battled depression, anxiety, grief, or heartbreak. Through raw storytelling, honest reflections, heartfelt prayers, and healing affirmations, this book reminds you that no matter how deep the valley or how long the storm, you are not alone.
+                        </p>
+                        <p style="font-style: italic; color: var(--metallic-gold);">
+                            "You are still here. You still matter. And your story isn't over."
+                        </p>
+                        <div class="book-price">$9.99</div>
+                        <a href="https://www.amazon.com/dp/B0FMXTFJX6?ref_=cm_sw_r_ffobk_cso_cp_mwn_dp_ZNAX3HX9K8EY9NMX38JV&bestFormat=true&rsd=Eai9385ZESeaeuR4d2mFlCtCSecldR7jZ2dEUIRWwqacEfklVu1DJGefNbtLBq1hzDmnkMlzxCu4cVS%2F1z1F35WzHJRHH2o%2BKWVY1na19Tjp&edk=AQIDAHi1lw%2FM8UbbSMD9ScOOFEmBMHMthHeEhqDaQYPJUAX3jQEV5bSTiuujL0nwTPF061mdAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMmg94jelG8EBTDa7yAgEQgDsY6MIWCRxjT3Kncn%2BIsEd8bIauPnQJrIhXl6GzwAh3ndrt9bExNDsHteJ8LZEPs8jkhD19gERZzEXi8Q%3D%3D" target="_blank" rel="noopener noreferrer" class="btn-gold" style="padding: 12px 30px; font-size: 13px;">
+                            <i class="fas fa-shopping-cart"></i> Get the Book
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Journal -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <img src="book-2.jpg" alt="Not Just An Ordinary">
+                    </div>
+                    <div class="book-info">
+                        <span class="book-tag">30-Day Journal</span>
+                        <h3>Not Just An Ordinary</h3>
+                        <p>
+                            This is not just another 30-day journal. This is the journal of all journals. It provides daily self-reflections that can be used at any time of the day. It provides hope when needed, guidance when needed, and if this book could hug you, it would.
+                        </p>
+                        <p style="font-style: italic; color: var(--metallic-gold);">
+                            "Day by day, you will become more free within yourself as well as operate with more confidence using this journal."
+                        </p>
+                        <div class="book-price">$9.99</div>
+                        <a href="https://www.amazon.com/dp/B0GVXV7HVZ?ref_=cm_sw_r_ffobk_cso_cp_mwn_dp_ZSWPXH3GAJKK4B1RWKXT&bestFormat=true" target="_blank" rel="noopener noreferrer" class="btn-gold" style="padding: 12px 30px; font-size: 13px;">
+                            <i class="fas fa-shopping-cart"></i> Get the Journal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase -->
+    <section class="app-showcase" id="app">
+        <div class="app-container">
+            <div class="app-content">
+                <div class="section-label">Digital Experience</div>
+                <h2 class="section-title">Who Am I? App</h2>
+                <p>
+                    A faith-based journey of self-discovery, healing, and empowerment for every woman. Transform your daily routine with guided journaling, powerful affirmations, prayers, and progress tracking.
+                </p>
+                <div class="app-features">
+                    <div class="app-feature">
+                        <i class="fas fa-heart"></i>
+                        <span>Daily Affirmations & Scriptures</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-book-open"></i>
+                        <span>Guided Journal with Faith-Based Prompts</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-pray"></i>
+                        <span>Prayer Categories for Every Season</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Mood Tracking & Progress Analytics</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-fire"></i>
+                        <span>Streak Tracking & Weekly Insights</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notary Section -->
+    <section class="notary" id="notary">
+        <div class="section-header">
+            <div class="section-label">Professional Services</div>
+            <h2 class="section-title">Notary Public</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="notary-container">
+            <div class="notary-card">
+                <div class="notary-icon">
+                    <i class="fas fa-stamp"></i>
+                </div>
+                <h3>Pennsylvania Notary Services</h3>
+                <p>
+                    Licensed Notary Public in the Commonwealth of Pennsylvania. I provide professional, reliable, and convenient notarization services for individuals and businesses.
+                </p>
+                <div class="notary-services">
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>General Notarizations</span>
+                    </div>
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Loan Documents</span>
+                    </div>
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Real Estate Closings</span>
+                    </div>
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Power of Attorney</span>
+                    </div>
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Wills & Trusts</span>
+                    </div>
+                    <div class="notary-service">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Mobile Service Available</span>
+                    </div>
+                </div>
+                <div class="notary-hours">
+                    <h4><i class="fas fa-clock"></i> Availability</h4>
+                    <p><strong>Saturday:</strong> 10:00 AM - 6:00 PM | <strong>Sunday:</strong> 12:00 PM - 5:00 PM</p>
+                    <p style="font-size: 13px; margin-top: 5px;">Weekend appointments only. Book in advance to secure your spot!</p>
+                </div>
+
+                <!-- Appointment Form -->
+                <h3 style="margin-top: 40px; font-family: 'Playfair Display', serif; font-size: 28px;">Book an Appointment</h3>
+                <form class="appointment-form" onsubmit="handleAppointment(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="(555) 000-0000" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" placeholder="Street address, city, state, and ZIP code" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Preferred Date</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Time</label>
+                            <select required>
+                                <option value="">Select time</option>
+                                <option>10:00 AM</option>
+                                <option>11:00 AM</option>
+                                <option>12:00 PM</option>
+                                <option>1:00 PM</option>
+                                <option>2:00 PM</option>
+                                <option>3:00 PM</option>
+                                <option>4:00 PM</option>
+                                <option>5:00 PM</option>
+                                <option>6:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Type of Document</label>
+                        <select required>
+                            <option value="">Select document type</option>
+                            <option>General Notarization</option>
+                            <option>Loan Documents</option>
+                            <option>Real Estate Closing</option>
+                            <option>Power of Attorney</option>
+                            <option>Will / Trust</option>
+                            <option>Affidavit</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea rows="3" placeholder="Any special requests or details..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i> Request Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notary Pricing Section -->
+    <section class="notary-pricing" id="notary-pricing">
+        <div class="section-header">
+            <div class="section-label">Pennsylvania Mobile Notary</div>
+            <h2 class="section-title">Notary Services & Fees</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="pricing-container">
+            <div class="pricing-grid">
+                <article class="pricing-card">
+                    <h3>Notary Services & Fees</h3>
+                    <ul class="pricing-list">
+                        <li><span>Acknowledgment <small>(first signature)</small></span><strong>$5</strong></li>
+                        <li><span>Each additional signature <small>(same certificate)</small></span><strong>$2</strong></li>
+                        <li><span>Oath or affirmation</span><strong>$5</strong></li>
+                        <li><span>Verification on oath/affirmation</span><strong>$5</strong></li>
+                        <li><span>Witnessing or attesting a signature</span><strong>$5</strong></li>
+                        <li><span>Certified copy</span><strong>$5</strong></li>
+                        <li><span>Protest of negotiable instrument</span><strong>$3/page</strong></li>
+                        <li><span>Remote online notarization (RON)</span><strong>Up to $20</strong></li>
+                    </ul>
+                    <p class="pricing-note">Pennsylvania law sets maximum fees for notarial acts. Separate travel or administrative fees may apply and will be disclosed in advance.</p>
+                </article>
+
+                <article class="pricing-card">
+                    <h3>Mobile Travel Fees</h3>
+                    <p class="pricing-subheading">Monroe County</p>
+                    <ul class="pricing-list">
+                        <li><span>Within 10 miles</span><strong>$20</strong></li>
+                        <li><span>11–20 miles</span><strong>$30</strong></li>
+                        <li><span>21–30 miles</span><strong>$40</strong></li>
+                        <li><span>31–40 miles</span><strong>$50</strong></li>
+                    </ul>
+                    <p class="pricing-subheading">Outside Monroe County</p>
+                    <ul class="pricing-list">
+                        <li><span>Pike County</span><strong>From $45</strong></li>
+                        <li><span>Northampton County</span><strong>From $60</strong></li>
+                        <li><span>Lehigh County</span><strong>From $70</strong></li>
+                        <li><span>Carbon County</span><strong>From $60</strong></li>
+                        <li><span>Wayne County</span><strong>From $60</strong></li>
+                        <li><span>Lackawanna County</span><strong>From $75</strong></li>
+                        <li><span>All other Pennsylvania locations</span><strong>Quote on request</strong></li>
+                    </ul>
+                </article>
+            </div>
+            <div class="payment-methods" aria-label="Accepted payments">
+                <span><i class="fas fa-money-bill-wave"></i> Cash</span>
+                <span><i class="fas fa-dollar-sign"></i> Cash App</span>
+                <span><i class="fas fa-z"></i> Zelle</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-header">
+            <div class="section-label">Testimonials</div>
+            <h2 class="section-title">What People Say</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    LLady's book "When Darkness Feels Like Home" literally saved my life. I was in the darkest place and her words reminded me that God still had a plan for me. I read it every morning now.
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Sarah">
+                    <div class="testimonial-author-info">
+                        <h4>Sarah M.</h4>
+                        <p>Book Reader</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    The Sisterhood Circle has been my safe space. In a world where women compete, LLady created a community where we complete each other. I've grown so much since joining.
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Keisha">
+                    <div class="testimonial-author-info">
+                        <h4>Keisha T.</h4>
+                        <p>Sisterhood Member</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    I needed documents notarized urgently and LLady came through! Professional, punctual, and made the whole process stress-free. Highly recommend her services.
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Michael">
+                    <div class="testimonial-author-info">
+                        <h4>Michael R.</h4>
+                        <p>Notary Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form class="review-form" onsubmit="handleReview(event)">
+            <h3>Share Your Experience</h3>
+            <p>We would love to hear from you. Your review will be shared with website visitors.</p>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="review-name">Your Name</label>
+                    <input id="review-name" name="name" type="text" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="review-rating">Your Rating</label>
+                    <select id="review-rating" name="rating" required>
+                        <option value="">Select rating</option>
+                        <option value="5 stars">★★★★★ — 5 Stars</option>
+                        <option value="4 stars">★★★★ — 4 Stars</option>
+                        <option value="3 stars">★★★ — 3 Stars</option>
+                        <option value="2 stars">★★ — 2 Stars</option>
+                        <option value="1 star">★ — 1 Star</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="review-message">Your Review</label>
+                <textarea id="review-message" name="review" rows="5" placeholder="Tell us about your experience..." required></textarea>
+            </div>
+            <button type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
+                <i class="fas fa-star"></i> Send Review
+            </button>
+        </form>
+        <div id="submitted-reviews" class="testimonials-grid" style="margin-top: 35px;"></div>
+    </section>
+
+    <!-- Contact / Footer -->
+    <section class="contact" id="contact">
+        <h2>Let's Connect</h2>
+        <p>Have a question, collaboration idea, or just want to say hello?<br>I'd love to hear from you.</p>
+        <a href="mailto:Piecebypeace0128@gmail.com" class="contact-email">
+            <i class="fas fa-envelope"></i> Piecebypeace0128@gmail.com
+        </a>
+        <div class="footer-social">
+            <a href="https://www.instagram.com/lladypeace/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://web.facebook.com/llady.peace" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@llady.peace3" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="mailto:Piecebypeace0128@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="footer-text">
+            © 2026 Llady Peace. All rights reserved. | Made with <span>♥</span> and faith.
+        </p>
+    </section>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Appointment form handler
+        function handleAppointment(e) {
+            e.preventDefault();
+            alert('Thank you! Your appointment request has been sent. LLady will contact you within 24 hours to confirm. 💗');
+            e.target.reset();
+        }
+
+        // Shared review database
+        const reviewDatabase = window.supabase.createClient(
+            'https://vcdmeycslmpuqgyigefx.supabase.co',
+            'sb_publishable_RpCuXXlASFCFnR1EgDfUUw_fzR9w6ow'
+        );
+
+        // Review form handler
+        async function handleReview(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.elements.name.value;
+            const rating = form.elements.rating.value;
+            const review = form.elements.review.value;
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Review';
+
+            const { data, error } = await reviewDatabase
+                .from('reviews')
+                .insert({ name, rating, review })
+                .select()
+                .single();
+
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<i class="fas fa-star"></i> Send Review';
+
+            if (error) {
+                alert('We could not post your review. Please try again.');
+                return;
+            }
+
+            renderReview(data);
+            form.reset();
+            alert('Thank you! Your review has been shared.');
+        }
+
+        function renderReview({ name, rating, review }) {
+            const reviewList = document.getElementById('submitted-reviews');
+            const card = document.createElement('article');
+            const text = document.createElement('p');
+            const author = document.createElement('div');
+            const authorInfo = document.createElement('div');
+            const authorName = document.createElement('h4');
+            const authorRating = document.createElement('p');
+
+            card.className = 'testimonial-card';
+            text.className = 'testimonial-text';
+            text.textContent = review;
+            author.className = 'testimonial-author';
+            authorInfo.className = 'testimonial-author-info';
+            authorName.textContent = name;
+            authorRating.textContent = rating;
+            authorInfo.append(authorName, authorRating);
+            author.append(authorInfo);
+            card.append(text, author);
+            reviewList.prepend(card);
+        }
+
+        async function loadReviews() {
+            const { data, error } = await reviewDatabase
+                .from('reviews')
+                .select('name, rating, review, created_at')
+                .order('created_at', { ascending: false })
+                .limit(50);
+
+            if (!error) data.forEach(renderReview);
+        }
+
+        loadReviews();
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.venture-card, .book-card, .testimonial-card').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
