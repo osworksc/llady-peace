@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
                     <p><strong>Date:</strong> Sunday, October 4, 2026<br><strong>Time:</strong> 6:00 PM Eastern Time (US and Canada)</p>
                     <p style="margin:28px 0;"><a href="${zoomLink}" style="background:#c99020;color:#ffffff;padding:14px 22px;border-radius:6px;text-decoration:none;font-weight:bold;">Join Zoom Meeting</a></p>
                     <p><strong>Meeting ID:</strong> 867 9146 7846<br><strong>Passcode:</strong> 449857</p>
-                    <p>With love,<br>Sisterhood Circle</p>
+                    <p>With love,<br>LLady Peace</p>
                 </div>`
         })
     });
