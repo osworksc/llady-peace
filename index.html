@@ -529,6 +529,65 @@
             gap: 15px;
         }
 
+        /* Sisterhood Circle Zoom */
+        .zoom-signup {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            color: var(--white);
+        }
+
+        .zoom-signup .section-title {
+            color: var(--white);
+        }
+
+        .zoom-signup .section-label,
+        .zoom-signup .zoom-note {
+            color: var(--gold-light);
+        }
+
+        .zoom-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .zoom-container > p {
+            color: var(--gold-light);
+            margin: -30px auto 30px;
+            max-width: 580px;
+        }
+
+        .zoom-form {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(232, 213, 183, 0.45);
+            border-radius: 25px;
+            padding: 35px;
+            text-align: left;
+        }
+
+        .zoom-form .form-group label {
+            color: var(--white);
+        }
+
+        .zoom-note {
+            text-align: center;
+            margin: 20px 0 0;
+            font-size: 13px;
+        }
+
+        .zoom-form .btn-gold:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            box-shadow: none;
+        }
+
+        .website-field {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
         /* Books Section */
         .books {
             background: var(--white);
@@ -1199,6 +1258,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#ventures">My Work</a></li>
+            <li><a href="#zoom">Zoom</a></li>
             <li><a href="#books">Books</a></li>
             <li><a href="#app">App</a></li>
             <li><a href="#notary">Notary</a></li>
@@ -1326,6 +1386,33 @@
                     View Fees &amp; Book <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
+        </div>
+    </section>
+
+    <!-- Sisterhood Circle Zoom Sign-up -->
+    <section class="zoom-signup" id="zoom">
+        <div class="section-header">
+            <div class="section-label">Sisterhood Circle</div>
+            <h2 class="section-title">Join Our Zoom Meeting</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="zoom-container">
+            <p>Register for our next Sisterhood Circle gathering on Sunday, October 4, 2026 at 6:00 PM Eastern Time.</p>
+            <form class="zoom-form" id="zoom-form">
+                <input class="website-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <div class="form-group">
+                    <label for="zoom-name">Your Name</label>
+                    <input id="zoom-name" name="name" type="text" placeholder="Your name" maxlength="80" required>
+                </div>
+                <div class="form-group">
+                    <label for="zoom-email">Your Email</label>
+                    <input id="zoom-email" name="email" type="email" placeholder="your@email.com" maxlength="254" required>
+                </div>
+                <button id="zoom-submit" type="submit" class="btn-gold" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-video"></i> Email Me the Zoom Link
+                </button>
+            </form>
+            <p id="zoom-status" class="zoom-note" aria-live="polite">Your Zoom invitation will be sent straight to your email.</p>
         </div>
     </section>
 
@@ -1731,6 +1818,43 @@
 
             window.location.href = `mailto:Piecebypeace0128@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             e.target.reset();
+        }
+
+        // Sisterhood Circle Zoom sign-up
+        const zoomForm = document.getElementById('zoom-form');
+        if (zoomForm) {
+            zoomForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const submitButton = document.getElementById('zoom-submit');
+                const status = document.getElementById('zoom-status');
+                const formData = new FormData(zoomForm);
+
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Your Invitation';
+                status.textContent = 'Sending your Zoom invitation…';
+
+                try {
+                    const response = await fetch('/api/zoom-signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: formData.get('name'),
+                            email: formData.get('email'),
+                            company: formData.get('company')
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('Zoom email could not be sent.');
+
+                    zoomForm.reset();
+                    status.textContent = 'Your Zoom invitation is on its way. Please check your email.';
+                } catch (error) {
+                    status.textContent = 'We could not send the invitation. Please try again in a moment.';
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-video"></i> Email Me the Zoom Link';
+                }
+            });
         }
 
         // Shared review database
