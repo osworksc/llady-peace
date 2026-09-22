@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
             subject: 'Your Sisterhood Circle Zoom Link — October 4, 2026',
             htmlContent: `
                 <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#292929;line-height:1.6;">
-                    <p style="margin:0 0 24px;text-align:center;"><img src="https://llady-peace.vercel.app/sisterhood-circle.jpg" alt="Sisterhood Circle" width="180" style="display:inline-block;width:180px;max-width:100%;height:auto;border:0;border-radius:50%;"></p>
+                    <p style="margin:0 0 24px;text-align:center;"><img src="https://llady-peace.vercel.app/sisterhood-circle.jpg" alt="Sisterhood Circle" width="110" style="display:inline-block;width:110px;max-width:100%;height:auto;border:0;border-radius:50%;"></p>
                     <p>Hello ${safeName},</p>
                     <p>Thank you for joining Sisterhood Circle. We are excited to see you at our upcoming gathering.</p>
                     <p><strong>Date:</strong> Sunday, October 4, 2026<br><strong>Time:</strong> 6:00 PM Eastern Time (US and Canada)</p>
