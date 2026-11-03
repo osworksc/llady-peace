@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
         return res.status(500).json({ error: 'Email service is not configured.' });
     }
 
-    const zoomLink = 'https://us06web.zoom.us/j/86791467846?pwd=Wq2b7ELboKx3kbrwVrzXXddAy3ISxI.1';
+    const zoomLink = 'https://us06web.zoom.us/j/86404663423?pwd=k5GBspXaKoZA8CPbK9GisX2gtThfe7.1';
     const safeName = escapeHtml(cleanName);
     const emailResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
@@ -35,15 +35,15 @@ module.exports = async (req, res) => {
         body: JSON.stringify({
             sender: { name: 'Sisterhood Circle', email: 'Piecebypeace0128@gmail.com' },
             to: [{ email: cleanEmail, name: cleanName }],
-            subject: 'Your Sisterhood Circle Zoom Link — October 4, 2026',
+            subject: 'Your Sisterhood Circle Zoom Link — November 22, 2026',
             htmlContent: `
                 <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#292929;line-height:1.6;">
                     <p style="margin:0 0 24px;text-align:center;"><img src="https://llady-peace.vercel.app/sisterhood-circle.jpg" alt="Sisterhood Circle" width="110" style="display:inline-block;width:110px;max-width:100%;height:auto;border:0;border-radius:50%;"></p>
                     <p>Hello ${safeName},</p>
                     <p>Thank you for joining Sisterhood Circle. We are excited to see you at our upcoming gathering.</p>
-                    <p><strong>Date:</strong> Sunday, October 4, 2026<br><strong>Time:</strong> 6:00 PM Eastern Time (US and Canada)</p>
+                    <p><strong>Date:</strong> Sunday, November 22, 2026<br><strong>Time:</strong> 6:00 PM</p>
                     <p style="margin:28px 0;"><a href="${zoomLink}" style="background:#c99020;color:#ffffff;padding:14px 22px;border-radius:6px;text-decoration:none;font-weight:bold;">Join Zoom Meeting</a></p>
-                    <p><strong>Meeting ID:</strong> 867 9146 7846<br><strong>Passcode:</strong> 449857</p>
+                    <p><strong>Meeting ID:</strong> 864 0466 3423<br>Your secure Zoom link above includes all joining details.</p>
                     <p>With love,<br>LLady Peace</p>
                 </div>`
         })
